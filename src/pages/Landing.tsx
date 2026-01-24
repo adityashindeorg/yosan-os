@@ -62,6 +62,7 @@ const TiltContainer = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+// RENAME: This component is now consistently named DashboardSimulator
 const DashboardSimulator = () => {
   const [step, setStep] = useState(0);
   useEffect(() => {
@@ -116,78 +117,7 @@ const DashboardSimulator = () => {
   );
 };
 
-// --- SECTIONS ---
-
-const Navbar = ({ onLogin }: { onLogin: () => void }) => (
-  <nav className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
-    <motion.div initial={{ y: -100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="bg-white/80 backdrop-blur-xl border border-white/20 shadow-2xl shadow-black/5 rounded-full px-8 py-4 flex items-center gap-16">
-       <div className="flex items-center gap-2 cursor-pointer group">
-          <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center group-hover:bg-[#A9FF53] transition-colors"><span className="text-white group-hover:text-black font-bold text-xs">Y</span></div>
-          <span className="font-bold text-slate-900 tracking-tight text-lg">Yosan</span>
-       </div>
-       <div className="hidden md:flex items-center gap-8 text-xs font-bold text-slate-500 uppercase tracking-wide">
-          <a href="#features" className="hover:text-slate-900 transition-colors">Features</a>
-          <a href="#security" className="hover:text-slate-900 transition-colors">Security</a>
-          <a href="#pricing" className="hover:text-slate-900 transition-colors">Membership</a>
-       </div>
-       <button onClick={onLogin} className="px-6 py-2.5 rounded-full bg-black text-white text-xs font-bold uppercase tracking-wider hover:bg-[#A9FF53] hover:text-black transition-all hover:scale-105 shadow-lg">Dashboard</button>
-    </motion.div>
-  </nav>
-);
-
-const Hero = ({ onLogin }: { onLogin: () => void }) => (
-    <section className="relative min-h-screen flex items-center pt-32 pb-20 px-6 overflow-hidden bg-[#FAFAFA]">
-       <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-gradient-to-b from-white to-slate-100 rounded-full blur-[100px]" />
-          <div className="absolute top-[40%] left-[-10%] w-[600px] h-[600px] bg-[#A9FF53]/10 rounded-full blur-[120px]" />
-       </div>
-       <div className="max-w-[1400px] mx-auto w-full grid lg:grid-cols-12 gap-12 items-center relative z-10">
-          <div className="lg:col-span-5 flex flex-col justify-center">
-             <FadeUp>
-                <h1 className="text-6xl md:text-8xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-8">
-                   Enjoy your <span className="relative inline-block text-[#A9FF53] bg-black px-4 transform -rotate-2 rounded-xl">Yosan,</span> <br/>
-                   enjoy your life.
-                </h1>
-                <p className="text-xl text-slate-500 font-medium leading-relaxed mb-10 max-w-md">
-                   The best solution for managing your finances. Smart, automated, and unapologetically simple.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                   <button onClick={onLogin} className="group px-10 py-5 bg-black text-white rounded-2xl font-bold text-lg flex items-center justify-center gap-3 hover:bg-[#A9FF53] hover:text-black transition-all shadow-xl hover:-translate-y-1">
-                      Get Started <ArrowRight className="w-5 h-5" />
-                   </button>
-                   <button className="px-10 py-5 bg-white border-2 border-slate-100 text-slate-900 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 hover:border-black transition-colors">
-                      <Play className="w-4 h-4 fill-current" /> Demo
-                   </button>
-                </div>
-                <div className="flex items-center gap-4 border-t border-slate-200 pt-8">
-                   <div className="flex -space-x-4">
-                      {[1,2,3,4].map(i => <div key={i} className="w-12 h-12 rounded-full border-4 border-[#FAFAFA] bg-slate-200" />)}
-                   </div>
-                   <div><div className="font-bold text-slate-900 text-lg leading-none">10k+ Users</div><div className="text-xs text-slate-400 font-bold uppercase tracking-wider">Trusted Globally</div></div>
-                </div>
-             </FadeUp>
-          </div>
-          <div className="lg:col-span-7 relative flex items-center justify-center lg:justify-end">
-             <div className="w-full relative transform lg:scale-110 lg:translate-x-10 transition-transform duration-700">
-                <TiltContainer>
-                    <div className="relative rounded-[40px] bg-white p-3 shadow-[0_60px_120px_-30px_rgba(0,0,0,0.2)] border border-slate-200">
-                       <div className="rounded-[32px] overflow-hidden border border-slate-100 bg-[#FAFAFA]"><DashboardSimulator /></div>
-                       <motion.div animate={{ y: [0, -20, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute -top-16 -right-4 md:-right-12 w-56 bg-black text-white p-6 rounded-3xl shadow-2xl z-20 border border-white/10">
-                          <div className="flex justify-between items-start mb-4"><div className="w-10 h-10 rounded-full bg-[#A9FF53] flex items-center justify-center text-black font-bold shadow-lg"><Zap className="w-5 h-5"/></div><span className="text-xs font-bold text-gray-500 uppercase tracking-widest">Cap</span></div>
-                          <div className="text-3xl font-black mb-1">$5,000</div><div className="text-xs text-gray-400 font-medium">Monthly Limit Active</div>
-                       </motion.div>
-                       <motion.div animate={{ y: [0, 20, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }} className="absolute -bottom-12 -left-4 md:-left-12 bg-white border border-slate-100 p-6 rounded-3xl shadow-2xl z-20 flex items-center gap-4">
-                          <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center"><Check className="w-6 h-6 text-slate-900"/></div>
-                          <div><div className="font-bold text-slate-900 text-lg">Synced</div><div className="text-xs text-slate-400 font-bold uppercase tracking-wide">Chase • Wells • Citi</div></div>
-                       </motion.div>
-                    </div>
-                </TiltContainer>
-                <div className="absolute inset-0 bg-gradient-to-tr from-slate-200 to-[#A9FF53] rounded-full blur-[120px] opacity-30 -z-10 transform scale-90 translate-y-20" />
-             </div>
-          </div>
-       </div>
-    </section>
-);
+// --- BENTO FEATURES ---
 
 const BentoFeatures = () => {
   return (
@@ -293,44 +223,99 @@ const Membership = () => (
             <p className="text-lg text-slate-500">Simple pricing for serious wealth builders.</p>
          </div>
          <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-center">
-            
             {/* FREE CARD */}
             <FadeUp>
                <div className="bg-white p-12 rounded-[3rem] border border-slate-200 hover:shadow-xl transition-all duration-300 relative group">
-                  <div className="mb-8">
-                     <span className="inline-block px-4 py-1.5 rounded-full bg-slate-100 text-xs font-bold uppercase tracking-widest text-slate-500 mb-6">Starter</span>
-                     <h3 className="text-5xl font-black text-slate-900 tracking-tighter">Free</h3>
-                     <p className="text-slate-500 mt-4 text-lg">Perfect for manual tracking.</p>
-                  </div>
-                  <ul className="space-y-5 mb-12">
-                     {["Unlimited Manual Transactions", "Basic Dashboard", "1 Project Stack", "7-Day History"].map((f,i)=>(
-                        <li key={i} className="flex items-center gap-4 font-medium text-slate-600"><div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center shrink-0"><Check className="w-3 h-3 text-slate-400" /></div> {f}</li>
-                     ))}
-                  </ul>
+                  <div className="mb-8"><span className="inline-block px-4 py-1.5 rounded-full bg-slate-100 text-xs font-bold uppercase tracking-widest text-slate-500 mb-6">Starter</span><h3 className="text-5xl font-black text-slate-900 tracking-tighter">Free</h3><p className="text-slate-500 mt-4 text-lg">Perfect for manual tracking.</p></div>
+                  <ul className="space-y-5 mb-12">{["Unlimited Manual Transactions", "Basic Dashboard", "1 Project Stack", "7-Day History"].map((f,i)=>(<li key={i} className="flex items-center gap-4 font-medium text-slate-600"><div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center shrink-0"><Check className="w-3 h-3 text-slate-400" /></div> {f}</li>))}</ul>
                   <button className="w-full py-5 rounded-2xl border-2 border-slate-900 font-bold text-slate-900 hover:bg-slate-900 hover:text-white transition-colors text-lg">Start Free</button>
                </div>
             </FadeUp>
-
             {/* EXECUTIVE CARD */}
             <FadeUp delay={0.1}>
                <div className="bg-slate-900 p-12 rounded-[3rem] text-white relative overflow-hidden shadow-2xl transform lg:scale-105 border border-white/10 group">
                   <div className="absolute top-0 right-0 w-80 h-80 bg-[#A9FF53] blur-[150px] opacity-10 group-hover:opacity-20 transition-opacity" />
-                  <div className="mb-10 relative z-10">
-                     <span className="inline-block px-4 py-1.5 rounded-full bg-[#A9FF53] text-black text-xs font-bold uppercase tracking-widest mb-6">Executive</span>
-                     <div className="flex items-baseline gap-2"><h3 className="text-6xl font-black tracking-tighter">$12</h3><span className="text-slate-400 text-lg">/month</span></div>
-                     <p className="text-slate-400 mt-4 text-lg">Full automation. No limits. The complete OS.</p>
-                  </div>
-                  <ul className="space-y-5 mb-12 relative z-10">
-                     {["Auto-Sync (15k+ Banks)", "Unlimited History", "AI Categorization", "Predictive Analytics", "Unlimited Stacks", "Priority Support"].map((f,i)=>(
-                        <li key={i} className="flex items-center gap-4 font-medium text-slate-200"><div className="w-6 h-6 rounded-full bg-[#A9FF53] flex items-center justify-center shrink-0 text-black"><Check className="w-3 h-3 stroke-[3px]" /></div> {f}</li>
-                     ))}
-                  </ul>
+                  <div className="mb-10 relative z-10"><span className="inline-block px-4 py-1.5 rounded-full bg-[#A9FF53] text-black text-xs font-bold uppercase tracking-widest mb-6">Executive</span><div className="flex items-baseline gap-2"><h3 className="text-6xl font-black tracking-tighter">$12</h3><span className="text-slate-400 text-lg">/month</span></div><p className="text-slate-400 mt-4 text-lg">Full automation. No limits. The complete OS.</p></div>
+                  <ul className="space-y-5 mb-12 relative z-10">{["Auto-Sync (15k+ Banks)", "Unlimited History", "AI Categorization", "Predictive Analytics", "Unlimited Stacks", "Priority Support"].map((f,i)=>(<li key={i} className="flex items-center gap-4 font-medium text-slate-200"><div className="w-6 h-6 rounded-full bg-[#A9FF53] flex items-center justify-center shrink-0 text-black"><Check className="w-3 h-3 stroke-[3px]" /></div> {f}</li>))}</ul>
                   <button className="relative z-10 w-full py-5 rounded-2xl bg-[#A9FF53] text-black font-bold hover:bg-white transition-colors text-lg shadow-[0_0_20px_rgba(169,255,83,0.3)]">Become a Member</button>
                </div>
             </FadeUp>
          </div>
       </div>
    </section>
+);
+
+// --- LAYOUT SECTIONS ---
+
+const Navbar = ({ onLogin }: { onLogin: () => void }) => (
+  <nav className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
+    <motion.div initial={{ y: -100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="bg-white/80 backdrop-blur-xl border border-white/20 shadow-2xl shadow-black/5 rounded-full px-8 py-4 flex items-center gap-16">
+       <div className="flex items-center gap-2 cursor-pointer group">
+          <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center group-hover:bg-[#A9FF53] transition-colors"><span className="text-white group-hover:text-black font-bold text-xs">Y</span></div>
+          <span className="font-bold text-slate-900 tracking-tight text-lg">Yosan</span>
+       </div>
+       <div className="hidden md:flex items-center gap-8 text-xs font-bold text-slate-500 uppercase tracking-wide">
+          <a href="#features" className="hover:text-slate-900 transition-colors">Features</a>
+          <a href="#security" className="hover:text-slate-900 transition-colors">Security</a>
+          <a href="#pricing" className="hover:text-slate-900 transition-colors">Membership</a>
+       </div>
+       <button onClick={onLogin} className="px-6 py-2.5 rounded-full bg-black text-white text-xs font-bold uppercase tracking-wider hover:bg-[#A9FF53] hover:text-black transition-all hover:scale-105 shadow-lg">Dashboard</button>
+    </motion.div>
+  </nav>
+);
+
+const Hero = ({ onLogin }: { onLogin: () => void }) => (
+    <section className="relative min-h-screen flex items-center pt-32 pb-20 px-6 overflow-hidden bg-[#FAFAFA]">
+       <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-gradient-to-b from-white to-slate-100 rounded-full blur-[100px]" />
+          <div className="absolute top-[40%] left-[-10%] w-[600px] h-[600px] bg-[#A9FF53]/10 rounded-full blur-[120px]" />
+       </div>
+       <div className="max-w-[1400px] mx-auto w-full grid lg:grid-cols-12 gap-12 items-center relative z-10">
+          <div className="lg:col-span-5 flex flex-col justify-center">
+             <FadeUp>
+                <h1 className="text-6xl md:text-8xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-8">
+                   Enjoy your <span className="relative inline-block text-[#A9FF53] bg-black px-4 transform -rotate-2 rounded-xl">Yosan,</span> <br/>
+                   enjoy your life.
+                </h1>
+                <p className="text-xl text-slate-500 font-medium leading-relaxed mb-10 max-w-md">
+                   The best solution for managing your finances. Smart, automated, and unapologetically simple.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 mb-12">
+                   <button onClick={onLogin} className="group px-10 py-5 bg-black text-white rounded-2xl font-bold text-lg flex items-center justify-center gap-3 hover:bg-[#A9FF53] hover:text-black transition-all shadow-xl hover:-translate-y-1">
+                      Get Started <ArrowRight className="w-5 h-5" />
+                   </button>
+                   <button className="px-10 py-5 bg-white border-2 border-slate-100 text-slate-900 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 hover:border-black transition-colors">
+                      <Play className="w-4 h-4 fill-current" /> Demo
+                   </button>
+                </div>
+                <div className="flex items-center gap-4 border-t border-slate-200 pt-8">
+                   <div className="flex -space-x-4">
+                      {[1,2,3,4].map(i => <div key={i} className="w-12 h-12 rounded-full border-4 border-[#FAFAFA] bg-slate-200" />)}
+                   </div>
+                   <div><div className="font-bold text-slate-900 text-lg leading-none">10k+ Users</div><div className="text-xs text-slate-400 font-bold uppercase tracking-wider">Trusted Globally</div></div>
+                </div>
+             </FadeUp>
+          </div>
+          <div className="lg:col-span-7 relative flex items-center justify-center lg:justify-end">
+             <div className="w-full relative transform lg:scale-110 lg:translate-x-10 transition-transform duration-700">
+                <TiltContainer>
+                    <div className="relative rounded-[40px] bg-white p-3 shadow-[0_60px_120px_-30px_rgba(0,0,0,0.2)] border border-slate-200">
+                       <div className="rounded-[32px] overflow-hidden border border-slate-100 bg-[#FAFAFA]"><DashboardSimulator /></div>
+                       <motion.div animate={{ y: [0, -20, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute -top-16 -right-4 md:-right-12 w-56 bg-black text-white p-6 rounded-3xl shadow-2xl z-20 border border-white/10">
+                          <div className="flex justify-between items-start mb-4"><div className="w-10 h-10 rounded-full bg-[#A9FF53] flex items-center justify-center text-black font-bold shadow-lg"><Zap className="w-5 h-5"/></div><span className="text-xs font-bold text-gray-500 uppercase tracking-widest">Cap</span></div>
+                          <div className="text-3xl font-black mb-1">$5,000</div><div className="text-xs text-gray-400 font-medium">Monthly Limit Active</div>
+                       </motion.div>
+                       <motion.div animate={{ y: [0, 20, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }} className="absolute -bottom-12 -left-4 md:-left-12 bg-white border border-slate-100 p-6 rounded-3xl shadow-2xl z-20 flex items-center gap-4">
+                          <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center"><Check className="w-6 h-6 text-slate-900"/></div>
+                          <div><div className="font-bold text-slate-900 text-lg">Synced</div><div className="text-xs text-slate-400 font-bold uppercase tracking-wide">Chase • Wells • Citi</div></div>
+                       </motion.div>
+                    </div>
+                </TiltContainer>
+                <div className="absolute inset-0 bg-gradient-to-tr from-slate-200 to-[#A9FF53] rounded-full blur-[120px] opacity-30 -z-10 transform scale-90 translate-y-20" />
+             </div>
+          </div>
+       </div>
+    </section>
 );
 
 const Footer = ({ onLogin }: { onLogin: () => void }) => (
@@ -343,33 +328,21 @@ const Footer = ({ onLogin }: { onLogin: () => void }) => (
             Get Started Now
          </button>
          
-         {/* CREATOR CREDITS */}
          <div className="mt-24 pt-10 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center text-sm font-bold text-slate-500">
              <div className="flex items-center gap-2 text-slate-900">
                 <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white text-xs shadow-lg">Y</div>
                 <span className="text-lg">Yosan.</span>
              </div>
-             
              <div className="flex gap-10 mt-6 md:mt-0 uppercase tracking-widest text-[10px]">
                 <a href="#" className="hover:text-black transition-colors">Terms</a>
                 <a href="#" className="hover:text-black transition-colors">Privacy</a>
              </div>
-
              <div className="mt-6 md:mt-0 text-right">
                 <div className="flex items-center gap-2 justify-end group">
                    <span className="font-normal opacity-60">Architected by</span>
-                   <a 
-                     href="https://www.linkedin.com/in/aditya-shinde-59b998279" 
-                     target="_blank" 
-                     rel="noreferrer"
-                     className="text-slate-900 hover:text-[#A9FF53] hover:bg-black px-2 py-1 rounded transition-all flex items-center gap-1"
-                   >
-                      Aditya Shinde <Linkedin className="w-3 h-3"/>
-                   </a>
+                   <a href="https://www.linkedin.com/in/aditya-shinde-59b998279" target="_blank" rel="noreferrer" className="text-slate-900 hover:text-[#A9FF53] hover:bg-black px-2 py-1 rounded transition-all flex items-center gap-1">Aditya Shinde <Linkedin className="w-3 h-3"/></a>
                 </div>
-                <div className="text-[10px] opacity-40 font-mono mt-1 hover:opacity-100 transition-opacity cursor-pointer flex items-center justify-end gap-1">
-                   <Mail className="w-3 h-3"/> adityashindeorgx@gmail.com
-                </div>
+                <div className="text-[10px] opacity-40 font-mono mt-1 hover:opacity-100 transition-opacity cursor-pointer flex items-center justify-end gap-1"><Mail className="w-3 h-3"/> adityashindeorgx@gmail.com</div>
              </div>
          </div>
       </div>
