@@ -104,7 +104,7 @@ export default function Overview() {
   return (
     <MainLayout>
       <PageTransition>
-        <div className="w-full min-h-screen bg-[#F1F3F5] p-4 md:p-6 lg:p-8 font-sans text-slate-900 relative pb-24 md:pb-8">
+        <div className="w-full min-h-screen bg-[#F1F3F5] p-4 md:p-6 lg:p-8 font-sans text-slate-900 relative pb-32 lg:pb-8">
           
           {/* HEADER */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-4 md:gap-6">
@@ -140,7 +140,7 @@ export default function Overview() {
                       <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 md:mb-6 tracking-tighter truncate">
                          {formatCurrency(spent, currency).replace(currency, '')}<span className="text-2xl md:text-3xl text-gray-400 font-bold">{currency}</span>
                       </h2>
-                      <div className="flex flex-row md:flex-col gap-2 md:gap-4 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
+                      <div className="flex flex-row md:flex-col gap-2 md:gap-4 overflow-x-auto md:overflow-visible pb-2 md:pb-0 scrollbar-hide">
                          {topCategories.length > 0 ? topCategories.slice(0, 3).map((cat, i) => (
                            <div key={i} className="flex items-center gap-2 md:justify-between group cursor-default bg-gray-50 md:bg-transparent px-3 py-1.5 md:p-0 rounded-full md:rounded-none shrink-0">
                               <span className="text-[10px] md:text-xs font-bold text-gray-500 md:text-gray-400 uppercase max-w-[80px] md:w-24 truncate">{cat.name}</span>
@@ -226,7 +226,7 @@ export default function Overview() {
                          if (i === 3) bg = 'bg-gray-300';
 
                          return (
-                            <div key={i} className="relative w-16 md:w-20 group flex flex-col justify-end h-full">
+                            <div key={i} className="relative flex-1 md:w-20 group flex flex-col justify-end h-full px-1">
                                {isHero && cat && (
                                  <div className="hidden md:block absolute -top-24 left-1/2 -translate-x-1/2 text-center w-40 z-10">
                                      <div className="text-3xl font-bold text-[#A9FF53] mb-1">+{(val / (budget || 1) * 100).toFixed(0)}%</div>
