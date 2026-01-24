@@ -1,73 +1,43 @@
-# Welcome to your Lovable project
+# YOSAN OS ™
 
-## Project info
+![Yosan Banner](https://img.shields.io/badge/YOSAN-EXECUTIVE_FINANCE-black?style=for-the-badge&logo=appveyor) 
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+> **Master your financial reality.** > The intelligent operating system that replaces spreadsheets, trackers, and banking apps with one fluid, high-performance dashboard.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## ⚡️ The Experience
 
-**Use Lovable**
+Yosan is not just a budgeting app; it is a financial command center designed for clarity and speed.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+* **🌐 Live Demo:** [https://yosan-app.netlify.app](https://yosan-app.netlify.app) *(Replace with your actual link)*
+* **🎨 Design Philosophy:** "Glass & Steel" — High-contrast Swiss typography, frosted glass morphism, and physics-based interactions.
 
-Changes made via Lovable will be committed automatically to this repo.
+## 💎 Key Features
 
-**Use your preferred IDE**
+* **Executive Dashboard:** A real-time simulator of wealth allocation (Needs/Wants/Savings).
+* **Velocity Tracking:** Monitor burn rate and financial runway with predictive analytics.
+* **Project Stacks:** Isolate expenses by client, gig, or goal using virtual "stacks."
+* **Vault-Grade Security:** Local-first architecture with AES-256 encryption standards.
+* **Bento Grid Interface:** A modular, responsive layout for global currency tracking and syncing.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🛠 Tech Stack
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+* **Core:** React 18, TypeScript, Vite
+* **Styling:** Tailwind CSS
+* **Animations:** Framer Motion (Scroll-driven 3D tilts, physics springs)
+* **Backend:** Firebase (Authentication & Firestore)
+* **Deployment:** Netlify (CI/CD)
 
-Follow these steps:
+## 🚀 Getting Started
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+Follow these steps to run the executive suite locally.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+### 1. Clone the repository
+```bash
+git clone [https://github.com/adityashindeorg/yosan-os.git](https://github.com/adityashindeorg/yosan-os.git)
+cd yosan-os
