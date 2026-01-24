@@ -7,6 +7,13 @@
 ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
 
 > **Master your financial reality.** > The intelligent operating system that replaces spreadsheets, trackers, and banking apps with one fluid, high-performance dashboard.
+<img width="1905" height="957" alt="image" src="https://github.com/user-attachments/assets/7a6bc32c-663b-4de8-9f02-c18a10be8847" />
+<img width="1905" height="964" alt="image" src="https://github.com/user-attachments/assets/37950490-3c3e-404e-a18a-225198795786" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/094bee20-26da-44cd-a136-39f63ef040ff" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/970bde54-79ea-4a15-a2b8-0b0230747d9a" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/6dd8ea5d-9249-4714-a5b1-184f796d5628" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3cd1196b-a958-4ae5-aa83-568e88c2d9bb" />
+
 
 ---
 
@@ -41,13 +48,6 @@ Follow these steps to run the executive suite locally.
 ```bash
 git clone [https://github.com/adityashindeorg/yosan-os.git](https://github.com/adityashindeorg/yosan-os.git)
 cd yosan-os
-<img width="1905" height="957" alt="image" src="https://github.com/user-attachments/assets/7a6bc32c-663b-4de8-9f02-c18a10be8847" />
-<img width="1905" height="964" alt="image" src="https://github.com/user-attachments/assets/37950490-3c3e-404e-a18a-225198795786" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/094bee20-26da-44cd-a136-39f63ef040ff" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/970bde54-79ea-4a15-a2b8-0b0230747d9a" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/6dd8ea5d-9249-4714-a5b1-184f796d5628" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3cd1196b-a958-4ae5-aa83-568e88c2d9bb" />
-
 
 
 
