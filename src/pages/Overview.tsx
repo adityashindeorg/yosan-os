@@ -5,9 +5,8 @@ import { PageTransition } from '@/components/layout/PageTransition';
 import { ExpenseSheet } from '@/components/money/ExpenseSheet'; 
 import { formatCurrency } from '@/lib/db';
 import { 
-  Plus, ArrowUpRight, MoreHorizontal, Download, Filter, 
-  Settings2, ChevronDown, FileText, X, CheckCircle2, 
-  Layers, Clock, Briefcase, Calendar, TrendingUp
+  Plus, Download, ChevronDown, FileText, CheckCircle2, 
+  Layers, ArrowUpRight 
 } from 'lucide-react';
 import { collection, query, onSnapshot, orderBy, doc } from 'firebase/firestore';
 import { db, auth } from '@/lib/firebase';
@@ -23,27 +22,21 @@ export default function Overview() {
   // POPUP STATES
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isReportOpen, setIsReportOpen] = useState(false);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const reportRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged(user => {
       if (user) {
-        // 1. Transactions (Single Source of Truth)
         onSnapshot(query(collection(db, "users", user.uid, "transactions"), orderBy("date", "desc")), s => 
           setTransactions(s.docs.map(d => ({id: d.id, ...d.data(), date: d.data().date.toDate()})))
         );
-        
-        // 2. Settings (Specific Document Fix)
         onSnapshot(doc(db, "users", user.uid, "settings", "general"), (doc) => {
           if (doc.exists()) {
             setBudget(Number(doc.data().totalBudget) || 0);
             setCurrency(doc.data().currencySymbol || '₹');
           }
         });
-
-        // 3. Projects
         onSnapshot(collection(db, "users", user.uid, "projects"), s => 
            setProjects(s.docs.map(d => ({id: d.id, ...d.data()})))
         );
@@ -52,12 +45,10 @@ export default function Overview() {
     return () => unsub();
   }, []);
 
-  // --- DATA ENGINE ---
   const spent = transactions.reduce((acc, t) => acc + (Number(t.amount) || 0), 0);
   const saved = Math.max(0, budget - spent);
   const percentageSaved = budget > 0 ? Math.min(100, Math.max(0, (saved / budget) * 100)) : 0;
   
-  // Daily Activity Grid
   const dailyActivity = useMemo(() => {
     const days = Array(28).fill(0);
     const today = new Date();
@@ -69,7 +60,6 @@ export default function Overview() {
     return days;
   }, [transactions]);
 
-  // Category Ranking
   const topCategories = useMemo(() => {
      const cats: Record<string, number> = {};
      transactions.forEach(t => {
@@ -80,12 +70,9 @@ export default function Overview() {
   }, [transactions]);
   
   const maxCatVal = Math.max(...topCategories.map(c => c.val), 1);
-
-  // Project Stats
   const activeProjectCount = projects.filter(p => p.status !== 'Completed').length;
   const projectEfficiency = 84; 
 
-  // PDF Generator
   const handleDownloadPDF = async () => {
     if (!reportRef.current) return;
     setIsGenerating(true);
@@ -104,9 +91,9 @@ export default function Overview() {
   return (
     <MainLayout>
       <PageTransition>
-        <div className="w-full min-h-screen bg-[#F1F3F5] p-4 md:p-6 lg:p-8 font-sans text-slate-900 relative pb-32 lg:pb-8">
+        {/* ADDED pb-24 for mobile bottom bar clearance */}
+        <div className="w-full min-h-screen bg-[#F1F3F5] p-4 md:p-6 lg:p-8 font-sans text-slate-900 relative pb-24 lg:pb-8">
           
-          {/* HEADER */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-4 md:gap-6">
             <div>
               <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Financial Overview</h1>
@@ -116,15 +103,16 @@ export default function Overview() {
             </div>
             
             <div className="flex items-center gap-3 w-full md:w-auto">
-               <button onClick={() => setIsReportOpen(true)} className="flex-1 md:flex-none justify-center flex items-center gap-2 px-5 py-2.5 bg-white rounded-full border border-gray-200 text-xs font-bold text-gray-600 hover:bg-gray-50 transition-colors shadow-sm active:scale-95">
+               <button onClick={() => setIsReportOpen(true)} className="flex-1 md:flex-none justify-center flex items-center gap-2 px-5 py-2.5 bg-white rounded-full border border-gray-200 text-xs font-bold text-gray-600 hover:bg-gray-50 transition-colors shadow-sm">
                   <span>Export</span> <Download className="w-3 h-3" />
                </button>
             </div>
           </div>
 
+          {/* GRID: 1 column on Mobile, 12 on Desktop */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
 
-             {/* EXPENSE BREAKDOWN (Dot Grid) */}
+             {/* EXPENSE BREAKDOWN */}
              <div className="col-span-1 lg:col-span-7 bg-white rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 shadow-sm flex flex-col justify-between min-h-[350px] md:min-h-[380px] relative overflow-hidden">
                 <div className="flex justify-between items-start relative z-10 mb-4 md:mb-0">
                    <h3 className="text-lg md:text-xl font-bold text-slate-900">Expense Breakdown</h3>
@@ -150,7 +138,6 @@ export default function Overview() {
                       </div>
                    </div>
 
-                   {/* DOT GRID */}
                    <div className="flex-1 bg-gray-50/50 rounded-2xl md:rounded-3xl p-4 md:p-6 flex items-center justify-center relative border border-gray-100/50 min-h-[150px]">
                       <div className="grid grid-cols-7 gap-x-3 md:gap-x-4 gap-y-3 md:gap-y-4">
                          {dailyActivity.map((val, i) => {
@@ -218,19 +205,13 @@ export default function Overview() {
                          const val = cat ? cat.val : 0;
                          const h = cat ? Math.max(15, (val / maxCatVal) * 100) : 10;
                          const isHero = i === 2;
-
-                         let bg = 'bg-gray-200';
-                         if (i === 0) bg = 'bg-[#111]';
-                         if (i === 1) bg = 'bg-[#0B1221]';
-                         if (i === 2) bg = 'bg-gradient-to-t from-[#A9FF53] to-[#80CC00]';
-                         if (i === 3) bg = 'bg-gray-300';
+                         let bg = i === 0 ? 'bg-[#111]' : i === 1 ? 'bg-[#0B1221]' : i === 2 ? 'bg-gradient-to-t from-[#A9FF53] to-[#80CC00]' : 'bg-gray-200';
 
                          return (
                             <div key={i} className="relative flex-1 md:w-20 group flex flex-col justify-end h-full px-1">
                                {isHero && cat && (
                                  <div className="hidden md:block absolute -top-24 left-1/2 -translate-x-1/2 text-center w-40 z-10">
                                      <div className="text-3xl font-bold text-[#A9FF53] mb-1">+{(val / (budget || 1) * 100).toFixed(0)}%</div>
-                                     <div className="text-[10px] font-bold text-gray-400">of budget</div>
                                      <div className="absolute top-[60%] -left-12 w-16 border-t-2 border-dashed border-gray-200"></div>
                                      <div className="absolute top-[60%] -right-12 w-16 border-t-2 border-dashed border-gray-200"></div>
                                  </div>
@@ -245,7 +226,7 @@ export default function Overview() {
                 </div>
              </div>
 
-             {/* FINANCIAL BALANCE (Gauge) */}
+             {/* FINANCIAL BALANCE */}
              <div className="col-span-1 lg:col-span-4 bg-white rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 shadow-sm flex flex-col justify-between min-h-[250px] md:h-full">
                 <div className="flex justify-between items-start">
                    <h3 className="text-lg md:text-xl font-bold text-slate-900">Financial Balance</h3>
@@ -266,10 +247,6 @@ export default function Overview() {
                        </div>
                    </div>
                 </div>
-                
-                <p className="text-[10px] text-gray-400 font-bold text-center mt-4 md:mt-6">
-                   You are <span className="bg-[#A9FF53]/20 text-black px-1.5 py-0.5 rounded ml-1 font-extrabold">+{(percentageSaved * 0.1).toFixed(1)}%</span> ahead.
-                </p>
              </div>
 
           </div>
@@ -280,27 +257,18 @@ export default function Overview() {
           
           <ExpenseSheet isOpen={isSheetOpen} onClose={() => setIsSheetOpen(false)} />
           
-          {/* PDF PREVIEW MODAL */}
+          {/* PDF EXPORT (Hidden by default) */}
           <AnimatePresence>
             {isReportOpen && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/60 backdrop-blur-md z-[70] flex items-center justify-center p-4">
                  <motion.div initial={{ y: 50 }} animate={{ y: 0 }} exit={{ y: 50 }} className="bg-[#F1F3F5] rounded-[2rem] shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
                     <div className="p-6 bg-white border-b border-gray-100 flex justify-between items-center">
-                       <div><h2 className="text-xl md:text-2xl font-extrabold text-slate-900">Preview Report</h2><p className="text-xs font-bold text-gray-400">PDF Generator</p></div>
-                       <div className="flex items-center gap-3"><button onClick={() => setIsReportOpen(false)} className="px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm text-gray-500 hover:bg-gray-100">Cancel</button><button onClick={handleDownloadPDF} disabled={isGenerating} className="px-4 md:px-6 py-2 bg-black text-[#A9FF53] rounded-full font-bold text-xs md:text-sm flex items-center gap-2 hover:bg-gray-800 disabled:opacity-50">{isGenerating ? 'Saving...' : <><Download className="w-4 h-4" /> Save PDF</>}</button></div>
+                       <div><h2 className="text-xl md:text-2xl font-extrabold text-slate-900">Preview Report</h2></div>
+                       <div className="flex items-center gap-3"><button onClick={() => setIsReportOpen(false)} className="px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm text-gray-500 hover:bg-gray-100">Cancel</button><button onClick={handleDownloadPDF} disabled={isGenerating} className="px-4 md:px-6 py-2 bg-black text-[#A9FF53] rounded-full font-bold text-xs md:text-sm flex items-center gap-2 hover:bg-gray-800 disabled:opacity-50">{isGenerating ? 'Saving...' : 'Save PDF'}</button></div>
                     </div>
                     <div className="flex-1 overflow-y-auto p-4 md:p-8 bg-gray-100">
                        <div ref={reportRef} className="bg-white p-6 md:p-12 shadow-sm mx-auto max-w-3xl min-h-[1000px] text-slate-900">
-                          <div className="flex justify-between items-start mb-12 border-b border-gray-100 pb-8">
-                             <div><h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">Statement</h1><p className="text-gray-400 font-medium">Sphere.OS Financial Report</p></div>
-                             <div className="text-right"><p className="text-lg md:text-xl font-bold">{new Date().toLocaleDateString()}</p></div>
-                          </div>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                             <div className="p-6 bg-gray-50 rounded-2xl"><p className="text-xs font-bold text-gray-400 uppercase mb-2">Total Budget</p><p className="text-2xl font-extrabold">{formatCurrency(budget, currency)}</p></div>
-                             <div className="p-6 bg-gray-50 rounded-2xl"><p className="text-xs font-bold text-gray-400 uppercase mb-2">Total Spent</p><p className="text-2xl font-extrabold">{formatCurrency(spent, currency)}</p></div>
-                             <div className="p-6 bg-black text-[#A9FF53] rounded-2xl"><p className="text-xs font-bold opacity-70 uppercase mb-2">Savings</p><p className="text-2xl font-extrabold">{formatCurrency(saved, currency)}</p></div>
-                          </div>
-                          <h3 className="text-lg font-bold mb-6 flex items-center gap-2"><FileText className="w-5 h-5" /> Transactions</h3>
+                          <h1 className="text-3xl md:text-4xl font-extrabold mb-8">Statement</h1>
                           <table className="w-full text-left text-sm"><thead className="border-b-2 border-gray-100 text-gray-400 uppercase text-xs"><tr><th className="py-3 font-bold">Date</th><th className="py-3 font-bold">Category</th><th className="py-3 font-bold text-right">Amount</th></tr></thead><tbody className="divide-y divide-gray-50">{transactions.slice(0, 15).map((t, i) => (<tr key={i}><td className="py-4 font-medium text-gray-500">{t.date.toLocaleDateString()}</td><td className="py-4 font-bold">{t.categoryName}</td><td className="py-4 font-bold text-right">-{formatCurrency(t.amount, currency)}</td></tr>))}</tbody></table>
                        </div>
                     </div>
@@ -308,7 +276,6 @@ export default function Overview() {
               </motion.div>
             )}
           </AnimatePresence>
-
         </div>
       </PageTransition>
     </MainLayout>
